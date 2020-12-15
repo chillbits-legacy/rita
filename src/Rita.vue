@@ -1,15 +1,18 @@
 <template>
-  <h1>Rita</h1>
-  <HelloWorld msg="Rita init successfully." />
+  <h1>Rita - {{mediaId}}</h1>
+  <UpdateButton label="Change quantity" />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import UpdateButton from './components/UpdateButton.vue'
 
 export default {
   name: 'Rita',
+  props: {
+    mediaId: String
+  },
   components: {
-    HelloWorld
+    UpdateButton
   }
 }
 </script>
