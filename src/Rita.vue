@@ -1,18 +1,13 @@
 <template>
   <h1>Rita - {{mediaId}}</h1>
-  <UpdateButton label="Change quantity" />
+  <a-button>Button</a-button>
 </template>
 
 <script>
-import UpdateButton from './components/UpdateButton.vue'
-
 export default {
   name: 'Rita',
   props: {
     mediaId: String
-  },
-  components: {
-    UpdateButton
   }
 }
 </script>
