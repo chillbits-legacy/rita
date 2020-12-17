@@ -1,17 +1,16 @@
 <template>
   <div class="rita" v-if="ready">
-    <h2>Update your photo quantity</h2>
     <edit-button label="Edit"/>
     <modal/>
   </div>
-  <div clas="rita broken" v-else>
+  <div class="rita broken" v-else>
     <p>Could not run the app at the moment.</p>
   </div>
 </template>
 
 <script>
-import EditButton from './components/EditButton'
-import Modal from './components/Modal'
+import EditButton from './components/EditButton.vue'
+import Modal from './components/Modal.vue'
 
 export default {
   name: 'Rita',
@@ -103,7 +102,7 @@ export default {
           } = photo
 
           if (!(file_id && thumbnail_url && quantity)) {
-            throw 'Photo data does not valida'
+            throw 'Photo data does not valid'
           }
         })
 

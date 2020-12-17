@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import Rita from '../../src/Rita.vue'
+import Rita from '@rita/Rita.vue'
 
 test('Rita renders successfully', () => {
 
@@ -10,7 +10,6 @@ test('Rita renders successfully', () => {
     shallow: true
   })
 
-  expect(wrapper.find('h2').text()).toContain('Update your photo quantity')
   expect(wrapper.html()).toContain('<edit-button-stub></edit-button-stub>')
   expect(wrapper.html()).toContain('<modal-stub></modal-stub>')
 

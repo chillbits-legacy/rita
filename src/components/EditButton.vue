@@ -1,12 +1,22 @@
 <template>
-  <button>{{ label }}</button>
+  <div class="edit-button">
+    <a-button @click="handleClick">{{ label }}</a-button>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'EditButton',
   props: {
-    label: String
-  }
+    label: String,
+  },
+  methods: {
+    /**
+     * Handle button click
+     */
+    handleClick () {
+      this.$emit('click')
+    },
+  },
 }
 </script>

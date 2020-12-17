@@ -1,8 +1,8 @@
 module.exports = {
-  preset: 'ts-jest',
+  preset: "ts-jest",
   transform: {
-    '^.+\\.vue$': 'vue-jest',
-    '.*\\.(js)$': 'babel-jest'
+    "^.+\\.vue$": "vue-jest",
+    ".*\\.(js)$": "babel-jest"
   },
   moduleFileExtensions: [
     "js",
@@ -11,5 +11,8 @@ module.exports = {
   ],
   transformIgnorePatterns: [
       "node_modules/(?!lodash-es/.*)"
-  ]
+  ],
+  moduleNameMapper: {
+    "^@rita/(.*)": "<rootDir>/src/$1"
+  }
 }
