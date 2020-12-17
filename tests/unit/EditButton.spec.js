@@ -19,23 +19,6 @@ test('EditButton renders successfully', () => {
   expect(wrapper.html()).toContain('<a-button-stub></a-button-stub>')
 })
 
-test('EditButton renders successfully', () => {
-
-  const wrapper = mount(EditButton, {
-    props: {
-      label: 'Edit',
-    },
-    global: {
-      components: {
-        'a-button': Button,
-      },
-    },
-    shallow: true,
-  })
-
-  expect(wrapper.html()).toContain('<a-button-stub></a-button-stub>')
-})
-
 test('EditButton emits event click when Ant Button clicked', async () => {
   const wrapper = mount(EditButton, {
     props: {

@@ -1,7 +1,7 @@
 <template>
-  <div class="rita" v-if="ready">
-    <edit-button label="Edit"/>
-    <modal/>
+  <div class="rita awesome" v-if="ready">
+    <edit-button @click="handleEditButtonClick" label="Edit"/>
+    <modal :visible="modalVisible"/>
   </div>
   <div class="rita broken" v-else>
     <p>Could not run the app at the moment.</p>
@@ -11,23 +11,40 @@
 <script>
 import EditButton from './components/EditButton.vue'
 import Modal from './components/Modal.vue'
+import InteractsWithMediaJson from './mixins/InteractsWithMediaJson'
 
+/**
+ * Rita is a mini app that helps PhotoMart's customer to update their uploaded
+ * photos' quantity.
+ *
+ * This is the main app/component.
+ * We manage our statements and components here.
+ */
 export default {
   name: 'Rita',
+
   props: {
-    media: String,
-  },
-  data () {
-    return {
-      bree_item_id: null,
-      session_id: null,
-      photos: null,
+    media: {
+      type: String,
+      required: true
     }
   },
+
+  mixins: [
+    InteractsWithMediaJson,
+  ],
+
+  data () {
+    return {
+      modalVisible: false
+    }
+  },
+
   components: {
     EditButton,
     Modal,
   },
+
   computed: {
     /**
      * Determines if the app is ready to render
@@ -40,74 +57,15 @@ export default {
       }
 
       return false
-    },
+    }
   },
 
   methods: {
     /**
-     * Validate initial media data from props
-     *
-     * @param input
-     * @returns {boolean}
+     * Handle when edit button clicked
      */
-    validate (input) {
-      try {
-        input = JSON.parse(input)
-        return this.parseMedia(input)
-      } catch (exception) {
-        return false
-      }
-    },
-
-    /**
-     * Parse media json from props
-     *
-     * @param input
-     * @returns {boolean}
-     */
-    parseMedia (input) {
-      const {
-        bree_item_id,
-        media: {
-          session_id,
-          photos,
-        },
-      } = input
-
-      if (bree_item_id && session_id) {
-        this.bree_item_id = bree_item_id
-        this.session_id = session_id
-      }
-
-      if (this.isValidPhotos(photos)) {
-        this.photos = photos
-      }
-
-      return true
-    },
-
-    /**
-     * Validate the photos data
-     *
-     * @param photos
-     * @returns {boolean}
-     */
-    isValidPhotos (photos) {
-      if (Array.isArray(photos) && photos.length > 0) {
-        photos.forEach((photo) => {
-          const {
-            file_id,
-            thumbnail_url,
-            quantity,
-          } = photo
-
-          if (!(file_id && thumbnail_url && quantity)) {
-            throw 'Photo data does not valid'
-          }
-        })
-
-        return true
-      }
+    handleEditButtonClick () {
+      this.modalVisible = true
     },
   },
 }
