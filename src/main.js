@@ -5,9 +5,14 @@ import Button from 'ant-design-vue/lib/button'
 
 const mount = document.querySelector('#rita')
 
-const App = createApp(Rita, {
-    ...mount.dataset
-})
+if ('object' === typeof mount) {
+  const App = createApp(Rita, {
+    ...mount.dataset,
+  })
 
-App.use(Button)
-App.mount('#rita')
+  App.use(Button)
+  App.mount('#rita')
+} else {
+  console.error('Could not render Rita on the expected mount.')
+}
+
