@@ -1,7 +1,9 @@
 <template>
   <div class="rita awesome" v-if="ready">
     <edit-button @click="handleEditButtonClick" label="Edit"/>
-    <modal v-model:show="modalVisible"/>
+    <modal v-model:show="modalShowing">
+      Modal Content
+    </modal>
   </div>
   <div class="rita broken" v-else>
     <p>Could not run the app at the moment.</p>
@@ -9,10 +11,11 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 import EditButton from './components/EditButton.vue'
 import Modal from './components/Modal.vue'
 import useMediaJsonParser from './composables/useMediaJsonParser'
+import useModalState from './composables/useModalState'
 
 /**
  * Rita is a mini app that helps PhotoMart's customer to update their uploaded
@@ -44,33 +47,48 @@ export default {
    */
   setup (props) {
     /**
-     * Modal visible or not
-     *
-     * @type {Ref<UnwrapRef<boolean>>}
-     */
-    const modalVisible = ref(false)
-
-    /**
      * The props that passed into our app
      */
     const { mediaJson } = props
 
+    /**
+     * @var isMediaGood {boolean} Determines if the media json input
+     *                            is good for the app.
+     * @var media       {object}  Contains parsed media information from the JSON.
+     */
     const {
       isMediaGood,
       media,
     } = useMediaJsonParser(mediaJson)
 
+    /**
+     * @var modalShowing  {boolean}
+     * @var showModal     Function
+     */
+    const {
+      modalShowing,
+      showModal,
+    } = useModalState()
+
+    /**
+     * Tell the template if it's ready to render
+     *
+     * @type {ComputedRef<*>}
+     */
     const ready = computed(() => {
       return isMediaGood
     })
 
-    const handleEditButtonClick = (event) => {
-      modalVisible.value = true
+    /**
+     * Handle when edit button clicked
+     */
+    function handleEditButtonClick () {
+      showModal()
     }
 
     return {
       ready,
-      modalVisible,
+      modalShowing,
       handleEditButtonClick,
     }
   },

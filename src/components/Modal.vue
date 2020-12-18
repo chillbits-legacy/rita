@@ -9,7 +9,7 @@
           Submit
         </a-button>
       </template>
-      Modal Content
+      <slot></slot>
     </a-modal>
   </div>
 </template>
