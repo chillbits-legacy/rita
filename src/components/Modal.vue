@@ -1,6 +1,11 @@
 <template>
   <div class="modal">
-    <a-modal v-model:visible="visible" title="Title" @ok="handleOk">
+    <a-modal
+        :visible="visible"
+        title="Title"
+        @ok="handleOk"
+        @cancel="handleCancel"
+    >
       <template #footer>
         <a-button key="back" @click="handleCancel">
           Return

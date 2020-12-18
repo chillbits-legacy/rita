@@ -11,17 +11,29 @@ export default {
   props: {
     label: {
       type: String,
-      default: 'Edit'
-    }
+      default: 'Edit',
+    },
   },
 
-  methods: {
+  emits: ['click'],
+
+  /**
+   *
+   * @param props
+   * @param emit
+   * @returns {{handleClick: handleClick}}
+   */
+  setup (props, { emit }) {
     /**
      * Handle button click
      */
-    handleClick () {
-      this.$emit('click')
-    },
+    function handleClick () {
+      emit('click')
+    }
+
+    return {
+      handleClick,
+    }
   },
 }
 </script>
