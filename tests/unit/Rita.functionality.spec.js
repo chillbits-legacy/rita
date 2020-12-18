@@ -21,7 +21,7 @@ test('Rita can open modal when click button', async () => {
   const buttonComponent = wrapper.findComponent({ name: 'edit-button' })
   const modalComponent = wrapper.findComponent({ name: 'modal' })
 
-  expect(modalComponent.props('visible')).toBe(false)
+  expect(modalComponent.props('show')).toBe(false)
   await buttonComponent.trigger('click')
-  expect(modalComponent.props('visible')).toBe(true)
+  expect(modalComponent.props('show')).toBe(true)
 })

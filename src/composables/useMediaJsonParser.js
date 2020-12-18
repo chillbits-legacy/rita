@@ -20,6 +20,7 @@ export default function useMediaJsonParser (mediaJson) {
 function parseAndValidate (input) {
   try {
     const parsedMedia = parseMedia(input)
+
     return {
       result: true,
       parsedMedia,
@@ -50,17 +51,15 @@ function parseMedia (input) {
 
   const media = {}
 
-  if (bree_item_id && session_id) {
-    media.bree_item_id = bree_item_id
-    media.session_id = session_id
-  } else {
+  if (!(bree_item_id && session_id)) {
     throw 'bree_item_id and session_id not found.'
   }
 
+  media.bree_item_id = bree_item_id
+  media.session_id = session_id
+
   if (isValidPhotos(photos)) {
     media.photos = photos
-  } else {
-    throw 'Photo data do not valid'
   }
 
   return media
@@ -82,7 +81,7 @@ function isValidPhotos (photos) {
       } = photo
 
       if (!(file_id && thumbnail_url && quantity)) {
-        return false
+        throw 'Photo data do not valid'
       }
     })
 

@@ -7,9 +7,14 @@
 <script>
 export default {
   name: 'EditButton',
+
   props: {
-    label: String,
+    label: {
+      type: String,
+      default: 'Edit'
+    }
   },
+
   methods: {
     /**
      * Handle button click

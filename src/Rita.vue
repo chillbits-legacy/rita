@@ -1,7 +1,7 @@
 <template>
   <div class="rita awesome" v-if="ready">
     <edit-button @click="handleEditButtonClick" label="Edit"/>
-    <modal :visible="modalVisible"/>
+    <modal v-model:show="modalVisible"/>
   </div>
   <div class="rita broken" v-else>
     <p>Could not run the app at the moment.</p>

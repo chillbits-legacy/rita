@@ -16,7 +16,7 @@ test('Modal renders successfully', async () => {
   })
 
   expect(wrapper.html()).toContain('<div class="modal"><!----></div>')
-  await wrapper.setProps({ visible: true })
+  await wrapper.setProps({ show: true })
   expect(AntModal).toHaveBeenLastCalledWith(
     {
       'onOk': expect.any(Function),

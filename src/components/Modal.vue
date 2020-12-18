@@ -15,40 +15,50 @@
 </template>
 
 <script>
+import { ref, watch, toRef } from 'vue'
+
 export default {
   name: 'Modal',
 
   props: {
-    visible: {
+    show: {
       type: Boolean,
       default: false,
     },
   },
 
-  data() {
-    return {
-      loading: false
-    }
-  },
+  emits: ['update:show'],
 
-  methods: {
+  setup (props, { emit }) {
+    const loading = ref(false)
+    const visible = toRef(props, 'show')
+
     /**
      * Handle button OK click
      */
-    handleOk() {
-      this.loading = true
+    function handleOk () {
+      loading.value = true
+
       setTimeout(() => {
-        this.setVisible(false)
-        this.loading = false
+        emit('update:show', false)
+        loading.value = false
       }, 1000)
-    },
+    }
 
     /**
      * Handle button Cancel click
      */
-    handleCancel() {
-      this.setVisible(false)
+    function handleCancel () {
+      emit('update:show', false)
     }
-  }
+
+    return {
+      loading,
+      visible,
+      handleOk,
+      handleCancel,
+    }
+  },
+
 }
 </script>
