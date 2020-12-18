@@ -5,7 +5,7 @@ test('Rita renders successfully', () => {
 
   const wrapper = mount(Rita, {
     props: {
-      media: '{"bree_item_id":"23","media":{"session_id":55,"photos":[{"file_id":89,"thumbnail_url":"https:\\/\\/va-photomart-upload.s3.ap-southeast-1.amazonaws.com\\/1476089252-0770723001607931186\\/stock-photo-nautilus-cropped-thumbnail.png","quantity":1}]}}',
+      mediaJson: '{"bree_item_id":"23","media":{"session_id":55,"photos":[{"file_id":89,"thumbnail_url":"https:\\/\\/va-photomart-upload.s3.ap-southeast-1.amazonaws.com\\/1476089252-0770723001607931186\\/stock-photo-nautilus-cropped-thumbnail.png","quantity":1}]}}',
     },
     shallow: true,
   })
@@ -18,7 +18,7 @@ test('Rita renders successfully', () => {
 test('Rita does not render if media data is string', () => {
   const wrapper = mount(Rita, {
     props: {
-      media: 'random string',
+      mediaJson: 'random string',
     },
     shallow: true,
   })
@@ -29,7 +29,7 @@ test('Rita does not render if media data is string', () => {
 test('Rita does not render if media data is not validate', () => {
   const wrapper = mount(Rita, {
     props: {
-      media: '{"bree_item_id":"23","media":{"session_id":55,"photos":[{"file_id":89,"thumbnail_url":"https:\\/\\/va-photomart-upload.s3.ap-southeast-1.amazonaws.com\\/1476089252-0770723001607931186\\/stock-photo-nautilus-cropped-thumbnail.png"}]}}',
+      mediaJson: '{"bree_item_id":"23","media":{"session_id":55,"photos":[{"file_id":89,"thumbnail_url":"https:\\/\\/va-photomart-upload.s3.ap-southeast-1.amazonaws.com\\/1476089252-0770723001607931186\\/stock-photo-nautilus-cropped-thumbnail.png"}]}}',
     },
     shallow: true,
   })

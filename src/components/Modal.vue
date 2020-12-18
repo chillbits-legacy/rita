@@ -1,6 +1,6 @@
 <template>
   <div class="modal">
-    <a-modal v-model:visible="visible" title="Title" @ok="handleOk" autoFocusButton="null">
+    <a-modal v-model:visible="visible" title="Title" @ok="handleOk">
       <template #footer>
         <a-button key="back" @click="handleCancel">
           Return
@@ -38,7 +38,7 @@ export default {
     handleOk() {
       this.loading = true
       setTimeout(() => {
-        this.visible = false
+        this.setVisible(false)
         this.loading = false
       }, 1000)
     },
@@ -47,7 +47,7 @@ export default {
      * Handle button Cancel click
      */
     handleCancel() {
-      this.visible = false
+      this.setVisible(false)
     }
   }
 }

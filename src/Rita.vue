@@ -9,9 +9,10 @@
 </template>
 
 <script>
+import { computed, ref } from 'vue'
 import EditButton from './components/EditButton.vue'
 import Modal from './components/Modal.vue'
-import InteractsWithMediaJson from './mixins/InteractsWithMediaJson'
+import useMediaJsonParser from './composables/useMediaJsonParser'
 
 /**
  * Rita is a mini app that helps PhotoMart's customer to update their uploaded
@@ -23,50 +24,55 @@ import InteractsWithMediaJson from './mixins/InteractsWithMediaJson'
 export default {
   name: 'Rita',
 
-  props: {
-    media: {
-      type: String,
-      required: true
-    }
-  },
-
-  mixins: [
-    InteractsWithMediaJson,
-  ],
-
-  data () {
-    return {
-      modalVisible: false
-    }
-  },
-
   components: {
     EditButton,
     Modal,
   },
 
-  computed: {
-    /**
-     * Determines if the app is ready to render
-     *
-     * @returns {boolean}
-     */
-    ready () {
-      if (this.media) {
-        return this.validate(this.media)
-      }
-
-      return false
-    }
+  props: {
+    mediaJson: {
+      type: String,
+      required: true,
+    },
   },
 
-  methods: {
+  /**
+   * The main controller using Vue 3 way
+   *
+   * @param props
+   * @returns {{modalVisible: Ref<UnwrapRef<boolean>>, ready: ComputedRef<*>}}
+   */
+  setup (props) {
     /**
-     * Handle when edit button clicked
+     * Modal visible or not
+     *
+     * @type {Ref<UnwrapRef<boolean>>}
      */
-    handleEditButtonClick () {
-      this.modalVisible = true
-    },
+    const modalVisible = ref(false)
+
+    /**
+     * The props that passed into our app
+     */
+    const { mediaJson } = props
+
+    const {
+      isMediaGood,
+      media,
+    } = useMediaJsonParser(mediaJson)
+
+    const ready = computed(() => {
+      return isMediaGood
+    })
+
+    const handleEditButtonClick = (event) => {
+      modalVisible.value = true
+    }
+
+    return {
+      ready,
+      modalVisible,
+      handleEditButtonClick,
+    }
   },
 }
 </script>
